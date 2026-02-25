@@ -9,13 +9,12 @@ def register_tools(mcp):
         url = 'https://data.medicaid.gov/data.json' 
 
         params_dict = params.to_url() 
-        if params_dict: 
+        if params_dict is not None: 
             params = "&".join([f'{k}={v}' for k,v in list(params_dict.items())])
 
-            url = f"{url}/{params}"
+            url = f"{url}?{params}"
 
         try:
-
             async with httpx.AsyncClient() as client: 
                 response = await client.get(
                         url
