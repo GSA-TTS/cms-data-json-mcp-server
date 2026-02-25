@@ -3,7 +3,7 @@ from enum import Enum
 from typing import Optional
 
 
-class accrualPeriodicity(Enum):
+class AccrualPeriodicity(Enum):
     '''
     Values for 'accrualPeriodicity' field
     '''
@@ -91,13 +91,13 @@ class BureauCode(Enum):
 class SearchParams(BaseModel):
     keyword:Optional[str] = Field(None, description='keywords that describe the dataset')
     theme:Optional[DataTheme] = Field(None, description='themes that describe the dataset')
-    description:Optiona[str] = Field(None, description='dataset description')
+    description:Optional[str] = Field(None, description='dataset description')
     bureauCode:Optional[BureauCode] = Field(None, description='indicates what agency/bureau the data is from')
-    accrualPeriodicity:Optional[accrualPeriodicity] = Field(None, description='how frequently the data is updated')
-    size:Optional[int] = Field(None, description='number of results to return')
+    periodicity:Optional[AccrualPeriodicity] = Field(None, description='how frequently the data is updated')
+    size:Optional[int] = Field(10, description='number of results to return')
 
 
-    def to_url(self) -> str: 
+    def to_url(self) -> dict[str]: 
         '''
         convert parameters to search URL
         '''
@@ -115,8 +115,9 @@ class SearchParams(BaseModel):
         if self.bureauCode:
             criteria['bureauCode'] = self.bureauCode
 
-        if self.accrualPeriodicity:
-            criteria['accrualPeriodicity'] = self.accrualPeriodicity
+        if self.periodicity:
+            criteria['accrualPeriodicity'] = self.periodicity
 
-        return '&'.join([f"{k}={v}" for k, v in criteria.items()])
+        if len(criteria) != 0:
+            return criteria
         
