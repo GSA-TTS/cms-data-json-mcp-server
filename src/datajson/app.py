@@ -11,7 +11,8 @@ register_tools(mcp)
 async def health_check(request:Request) -> JSONResponse:
     return JSONResponse({"status": "healthy", "service": "cms-datajson-mcp-server"})
 
-app = mcp.http_app(stateless_http=True)
 
-if __name__ == "__main__":
-    mcp.run(transport="stdio")
+app = mcp.http_app()
+
+# if __name__ == "__main__":
+#     mcp.run(transport="stdio")
