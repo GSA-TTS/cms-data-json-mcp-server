@@ -49,7 +49,7 @@ def clean_up_inventory(inventory:dict,
                     'accrualPeriodicity': dataset.get('accrualPeriodicity'), 
                     'originallyPublished': dataset.get('issued'), 
                     'lastUpdated': dataset.get('modified'), 
-                    'theme': dataset.get('theme'), 
-                    'keywords': dataset.get('keywords')
+                    'themes': dataset.get('theme'), 
+                    'keywords': dataset.get('keyword')
                 }
         return cleaned_inventory
