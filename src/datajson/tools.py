@@ -22,16 +22,8 @@ def register_tools(mcp):
 
             url = f"{url}?{params}"
 
-        try:
-            async with httpx.AsyncClient(timeout=180) as client: 
-                response = await client.get(
-                        url
-                    )
-                response.raise_for_status()
-                return response.json()
-            
-        except Exception as e:
-            raise Exception(f'query failed: {e}')
+        return query_dataset(url)
+
     
 
     @mcp.tool()
