@@ -1,4 +1,4 @@
-import httpx 
+import httpx
 from datajson.models import SearchParams
 
 
@@ -12,16 +12,16 @@ async def format_inventory_search(params:SearchParams) -> str:
         return base_url
 
 
-# async def query_dataset(url:str) -> dict:
-#     try:
-#         async with httpx.AsyncClient(timeout=180) as client: 
-#             response = await client.get(
-#                     url
-#                 )
-#             response.raise_for_status()
-#             return response.json()
+async def query_dataset(url:str) -> dict:
+    try:
+        async with httpx.AsyncClient(timeout=180) as client: 
+            response = await client.get(
+                    url
+                )
+            response.raise_for_status()
+            return response.json()
             
-#     except Exception as e:
-#         raise Exception(f'query failed: {e}') 
+    except Exception as e:
+        raise Exception(f'query failed: {e}') 
 
 
