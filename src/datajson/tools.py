@@ -1,5 +1,3 @@
-from fastmcp import Context 
-import httpx 
 from datajson.models import SearchParams
 from datajson.utils import query_dataset, clean_up_inventory
 
@@ -9,7 +7,6 @@ def register_tools(mcp):
     async def search_datasets(params:SearchParams):
         '''
         searches data inventory on data.medicaid.gov 
-
 
         ARGS:
             params: search paramters for query
@@ -40,7 +37,6 @@ def register_tools(mcp):
 
         if datasets is None:
             raise Exception('Query returned no datasets')
-        
         
         candidates = []
 

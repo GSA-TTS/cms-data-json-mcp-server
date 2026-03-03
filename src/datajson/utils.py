@@ -10,7 +10,7 @@ def format_inventory_search(params:SearchParams) -> str:
         return  f"{base_url}?{params_str}"
     else:
         return base_url
-
+    
 
 async def query_dataset(url:str) -> dict:
     try:
@@ -31,7 +31,7 @@ def clean_up_inventory(inventory:dict,
         helper function to clean up retrived inventory 
         from data.medicaid.gov 
         '''
-        datasets = inventory.get('datasets', None)
+        datasets = inventory.get('dataset', None)
         if datasets is None:
             raise Exception('Query returned no datasets')
         
