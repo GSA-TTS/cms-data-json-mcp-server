@@ -22,9 +22,9 @@ def register_tools(mcp):
 
             url = f"{url}?{params}"
 
-        return query_dataset(url)
+        results = query_dataset(url)
+        return results
 
-    
 
     @mcp.tool()
     async def get_candidate_datasets(inventory:dict, 
@@ -53,15 +53,7 @@ def register_tools(mcp):
                 url = distribution.get('describedBy')
 
                 if url is not None: 
-                    candidates.append(query_dataset(url))
+                    results = query_dataset(url)
+                    candidates.append(results)
         return candidates
-                    
-
-
-
-
-
-
-        
-
-
+   
