@@ -22,8 +22,16 @@ def register_tools(mcp):
 
             url = f"{url}?{params}"
 
-        results = query_dataset(url)
-        return results
+        try:
+            async with httpx.AsyncClient(timeout=180) as client: 
+                response = await client.get(
+                        url
+                    )
+                response.raise_for_status()
+                return response.json()
+                
+        except Exception as e:
+            raise Exception(f'query failed: {e}') 
 
 
     @mcp.tool()
@@ -53,7 +61,15 @@ def register_tools(mcp):
                 url = distribution.get('describedBy')
 
                 if url is not None: 
-                    results = query_dataset(url)
-                    candidates.append(results)
+                    try:
+                        async with httpx.AsyncClient(timeout=180) as client: 
+                            response = await client.get(
+                                    url
+                                )
+                            response.raise_for_status()
+                            candidates.append(response.json())
+                            
+                    except Exception as e:
+                        raise Exception(f'query failed: {e}') 
         return candidates
    
