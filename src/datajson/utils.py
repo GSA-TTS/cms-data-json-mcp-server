@@ -31,13 +31,12 @@ def clean_up_inventory(inventory:dict,
         helper function to clean up retrived inventory 
         from data.medicaid.gov 
         '''
-        datasets = inventory.get('dataset', None)
+        datasets = inventory.get('dataset')
         if datasets is None:
             raise Exception('Query returned no datasets')
         
         cleaned_inventory = {}
 
-        
         if limit is None:
                 limit = len(datasets) - 1
         

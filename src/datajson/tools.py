@@ -15,12 +15,12 @@ def register_tools(mcp):
 
         params_dict = params.to_url() 
         if params_dict is not None: 
-            params = "&".join([f'{k}={v}' for k,v in list(params_dict.items())])
+            params_str = "&".join([f'{k}={v}' for k,v in list(params_dict.items())])
 
-            url = f"{url}?{params}"
+            url = f"{url}?{params_str}"
 
         results = await query_dataset(url)
-        return clean_up_inventory(results)
+        return clean_up_inventory(results, limit=params.size)
 
 
     @mcp.tool()
