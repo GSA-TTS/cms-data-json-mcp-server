@@ -23,3 +23,34 @@ async def query_dataset(url:str) -> dict:
             
     except Exception as e:
         raise Exception(f'query failed: {e}') 
+    
+
+def clean_up_inventory(inventory:dict, 
+                       limit:int|None=None) -> dict:
+        '''
+        helper function to clean up retrived inventory 
+        from data.medicaid.gov 
+        '''
+        datasets = inventory.get('datasets', None)
+        if datasets is None:
+            raise Exception('Query returned no datasets')
+        
+        cleaned_inventory = {}
+
+        
+        if limit is None:
+                limit = len(datasets) - 1
+        
+        for dataset in datasets[:limit]: 
+            title = dataset.get('title')
+
+            if title is not None: 
+                cleaned_inventory[title] = {
+                    'description': dataset.get('description'), 
+                    'accrualPeriodicity': dataset.get('accrualPeriodicity'), 
+                    'originallyPublished': dataset.get('issued'), 
+                    'lastUpdated': dataset.get('modified'), 
+                    'theme': dataset.get('theme'), 
+                    'keywords': dataset.get('keywords')
+                }
+        return cleaned_inventory

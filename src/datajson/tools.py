@@ -1,7 +1,7 @@
 from fastmcp import Context 
 import httpx 
 from datajson.models import SearchParams
-from datajson.utils import query_dataset
+from datajson.utils import query_dataset, clean_up_inventory
 
 
 def register_tools(mcp):
@@ -23,7 +23,7 @@ def register_tools(mcp):
             url = f"{url}?{params}"
 
         results = await query_dataset(url)
-        return results
+        return clean_up_inventory(results)
 
 
     @mcp.tool()
@@ -56,4 +56,5 @@ def register_tools(mcp):
                     results = await query_dataset(url)
                     candidates.append(results)
         return candidates
-   
+
+
