@@ -94,7 +94,7 @@ class SearchParams(BaseModel):
     description:Optional[str] = Field(None, description='dataset description')
     bureauCode:Optional[BureauCode] = Field(None, description='indicates what agency/bureau the data is from')
     periodicity:Optional[AccrualPeriodicity] = Field(None, description='how frequently the data is updated')
-    size:Optional[int] = Field(25, description='number of results to return')
+    size:Optional[int] = Field(150, description='number of results to return')
 
 
     def to_url(self) -> dict[str]: 
