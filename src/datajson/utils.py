@@ -2,7 +2,7 @@ import httpx
 from datajson.models import SearchParams
 
 
-async def format_inventory_search(params:SearchParams) -> str:
+def format_inventory_search(params:SearchParams) -> str:
     base_url = 'https://data.medicaid.gov/data.json' 
     params_dict = params.to_url()
     if params_dict is not None:
@@ -23,5 +23,3 @@ async def query_dataset(url:str) -> dict:
             
     except Exception as e:
         raise Exception(f'query failed: {e}') 
-
-
