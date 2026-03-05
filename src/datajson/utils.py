@@ -43,7 +43,7 @@ def clean_up_inventory(inventory:dict,
         for dataset in datasets[:limit]: 
             title = dataset.get('title')
 
-            distributions = dataset.get('distribution'. {})
+            distributions = dataset.get('distribution', {})
             dataset_url = None
             for distribution in distributions:
                  if 'describedBy' in list(distribution.keys()):
