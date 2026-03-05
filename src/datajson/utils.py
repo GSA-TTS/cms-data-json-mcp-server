@@ -43,6 +43,12 @@ def clean_up_inventory(inventory:dict,
         for dataset in datasets[:limit]: 
             title = dataset.get('title')
 
+            distributions = dataset.get('distribution'. {})
+            dataset_url = None
+            for distribution in distributions:
+                 if 'describedBy' in list(distribution.keys()):
+                      dataset_url = distribution['describedBy']
+
             if title is not None: 
                 cleaned_inventory[title] = {
                     'description': dataset.get('description'), 
@@ -50,6 +56,7 @@ def clean_up_inventory(inventory:dict,
                     'originallyPublished': dataset.get('issued'), 
                     'lastUpdated': dataset.get('modified'), 
                     'themes': dataset.get('theme'), 
-                    'keywords': dataset.get('keyword')
+                    'keywords': dataset.get('keyword'), 
+                    'datasetDetails': dataset_url
                 }
         return cleaned_inventory

@@ -25,32 +25,30 @@ def register_tools(mcp):
 
     @mcp.tool()
     async def get_candidate_datasets(inventory:dict, 
-                                     limit:int|None = 10) -> list[dict]:
+                                     limit:int|None = 150) -> list[dict]:
         '''
         retrieve details on datasets matching search specifications
+        this tool allows you get to get column/variable level information
 
         ARGS:
             inventory: dictionary containing data.medicaid.gov's data.json inventory
             limit: number of individual datasets to inspect 
         '''
-        datasets = inventory.get('dataset', None)
-
-        if datasets is None:
+        if inventory is None:
             raise Exception('Query returned no datasets')
         
         candidates = []
 
         if limit is None:
-            limit = len(datasets) - 1
+            limit = len(inventory) - 1
 
-        for dataset in datasets[:limit]:
-            distributions = dataset.get('distribution')
-            for distribution in distributions:
-                url = distribution.get('describedBy')
+        for dataset in inventory[:limit]:
+            url = dataset.get('datasetDetails')
 
-                if url is not None: 
-                    results = await query_dataset(url)
-                    candidates.append(results)
+            if url is not None: 
+                results = await query_dataset(url)
+                candidates.append(results)
+
         return candidates
 
 
