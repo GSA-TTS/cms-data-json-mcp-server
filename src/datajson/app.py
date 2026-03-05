@@ -19,10 +19,9 @@ mcp = FastMCP(name="datajson",
               These are just a few examples and are not all encompassing
               of the kinds of data available 
 
-              COMMON WORK FLOW:
+              MOST COMMON WORK FLOW:
               - pull the data inventory using search_datasets
               - investigate relevant datasets using get_candidate_datasets
-              - 
               """)
 
 register_tools(mcp)

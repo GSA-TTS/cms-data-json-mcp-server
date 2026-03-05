@@ -6,7 +6,7 @@ from datajson.utils import query_dataset, clean_up_inventory, parse_dataset_deta
 
 
 def register_tools(mcp):
-    @mcp.tool()
+    @mcp.tool(task=True)
     async def search_datasets(params:SearchParams):
         '''
         searches data inventory on data.medicaid.gov 
@@ -26,7 +26,7 @@ def register_tools(mcp):
         return clean_up_inventory(results, limit=params.size)
 
 
-    @mcp.tool()
+    @mcp.tool(task=True)
     async def get_candidate_datasets(inventory:dict, 
                                      ctx:Context = CurrentContext(), 
                                      limit:int|None = None) -> list[dict]:
