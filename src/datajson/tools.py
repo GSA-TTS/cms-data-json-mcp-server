@@ -1,5 +1,8 @@
+from fastmcp.dependencies import CurrentContext
+from fastmcp.server.context import Context
+
 from datajson.models import SearchParams
-from datajson.utils import query_dataset, clean_up_inventory
+from datajson.utils import query_dataset, clean_up_inventory, parse_dataset_details_page
 
 
 def register_tools(mcp):
@@ -25,13 +28,18 @@ def register_tools(mcp):
 
     @mcp.tool()
     async def get_candidate_datasets(inventory:dict, 
-                                     limit:int|None = 150) -> list[dict]:
+                                     ctx:Context = CurrentContext(), 
+                                     limit:int|None = None) -> list[dict]:
         '''
         retrieve details on datasets matching search specifications
         this tool allows you get to get column/variable level information
 
+        use the context from the current session to decide which datasets 
+        are relevant to the users question
+
         ARGS:
             inventory: dictionary containing data.medicaid.gov's data.json inventory
+            context: context from current session
             limit: number of individual datasets to inspect 
         '''
         if inventory is None:
@@ -46,8 +54,12 @@ def register_tools(mcp):
             url = dataset.get('datasetDetails')
 
             if url is not None: 
-                results = await query_dataset(url)
-                candidates.append(results)
+                try:
+                    results = await query_dataset(url)
+                    results = parse_dataset_details_page(results)
+                    candidates.append(results)
+                except:
+                    continue
 
         return candidates
 
