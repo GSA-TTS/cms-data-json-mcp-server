@@ -29,7 +29,7 @@ def register_tools(mcp):
     @mcp.tool(task=True)
     async def get_candidate_datasets(inventory:dict, 
                                      ctx:Context = CurrentContext(), 
-                                     limit:int|None = None) -> list[dict]:
+                                     limit:int|None = 15) -> list[dict]:
         '''
         retrieve details on datasets matching search specifications
         this tool allows you get to get column/variable level information
