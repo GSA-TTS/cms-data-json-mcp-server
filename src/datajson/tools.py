@@ -50,7 +50,7 @@ def register_tools(mcp):
         if limit is None:
             limit = len(inventory) - 1
 
-        for dataset in inventory[:limit]:
+        for _, dataset in list(inventory.items())[:limit]:
             url = dataset.get('datasetDetails')
 
             if url is not None: 
