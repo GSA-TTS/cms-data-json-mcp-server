@@ -407,7 +407,7 @@ wheels = [
 [[package]]
 name = "data-json-mcp-pilot"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "fastmcp", extra = ["tasks"] },
     { name = "mcp", extra = ["cli"] },
