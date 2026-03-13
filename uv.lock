@@ -419,7 +419,7 @@ dependencies = [
 requires-dist = [
     { name = "fastmcp", extras = ["tasks"], specifier = ">=3.0.0" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.26.0" },
-    { name = "pandas", specifier = ">=3.0.1" },
+    { name = "pandas", specifier = ">=2.2.2" },
     { name = "requests", specifier = ">=2.32.5" },
 ]
 
