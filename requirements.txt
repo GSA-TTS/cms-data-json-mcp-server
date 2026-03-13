@@ -127,7 +127,7 @@ more-itertools==10.8.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-numpy==2.2.6
+numpy==2.4.2
     # via pandas
 openapi-pydantic==0.5.1
     # via fastmcp
