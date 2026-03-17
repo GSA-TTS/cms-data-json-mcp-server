@@ -16,8 +16,8 @@ mcp = FastMCP(name="datajson",
               - managed care enrollment 
               - monthly state level enrollment 
 
-              These are just a few examples and are not all encompassing
-              of the kinds of data available 
+              These are just a few examples and is not an exhaustive 
+              list of the data available 
 
               MOST COMMON WORK FLOW:
               - pull the data inventory using search_datasets
