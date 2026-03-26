@@ -52,9 +52,6 @@ def register_tools(mcp):
 
         titles = list(inventory.keys())
         
-        # for _, dataset in list(inventory.items())[:limit]:
-        #     url = dataset.get('datasetDetails')
-        
         for i in range(len(list(inventory.keys())))[:limit]:
             dataset = inventory[titles[i]]
             url = dataset.get('datasetDetails')

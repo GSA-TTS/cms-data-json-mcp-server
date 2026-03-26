@@ -1,4 +1,6 @@
 import httpx
+import regex as re
+import pandas as pd
 from datajson.models import SearchParams
     
 
@@ -37,11 +39,19 @@ def clean_up_inventory(inventory:dict) -> dict:
                       dataset_url = distribution['describedBy']
 
             if title is not None: 
-                cleaned_inventory[title] = {
+                # remove year 
+                cleaned_title = re.sub('\d{4}$', '', title).strip()
+
+                # if title is already in inventory, only update if this is a more recent entry
+                last_updated = dataset.get('modified')
+                if cleaned_title in list(cleaned_inventory.keys()) and pd.to_datetime(last_updated) < pd.to_datetime(cleaned_inventory[cleaned_title]['lastUpdated']):
+                    continue
+
+                cleaned_inventory[cleaned_title] = {
                     'description': dataset.get('description'), 
                     'accrualPeriodicity': dataset.get('accrualPeriodicity'), 
                     'originallyPublished': dataset.get('issued'), 
-                    'lastUpdated': dataset.get('modified'), 
+                    'lastUpdated': last_updated, 
                     'themes': dataset.get('theme'), 
                     'keywords': dataset.get('keyword'), 
                     'datasetDetails': dataset_url
