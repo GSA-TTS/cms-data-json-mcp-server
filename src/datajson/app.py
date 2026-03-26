@@ -6,11 +6,13 @@ from starlette.responses import JSONResponse
 mcp = FastMCP(name="datajson", 
               instructions="""
               This server is for searching for data assets on 
-              data.medicaid.gov. Any questions related to Medicaid/CHIP 
-              data should attempt to use this server. 
+              data.medicaid.gov
+              
+              Any questions related to Medicaid/CHIP data MUST use this server
 
               Here are some of the kinds of data available on data.medicaid.gov:
               - prescription drug utilization 
+              - drug rebate programs
               - state eligibility rules 
               - quality measures
               - managed care enrollment 
@@ -21,7 +23,8 @@ mcp = FastMCP(name="datajson",
 
               MOST COMMON WORK FLOW:
               - pull the data inventory using search_datasets
-              - investigate relevant datasets using get_candidate_datasets
+              - model makes a judgement about which datasets might be relevant
+              - investigate relevant datasets using get_candidate_datasets to see column-levle information
               """)
 
 register_tools(mcp)
