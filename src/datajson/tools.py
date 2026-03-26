@@ -50,8 +50,17 @@ def register_tools(mcp):
         if limit is None:
             limit = len(inventory) - 1
 
-        for _, dataset in list(inventory.items())[:limit]:
+        titles = list(inventory.keys())
+        
+        # for _, dataset in list(inventory.items())[:limit]:
+        #     url = dataset.get('datasetDetails')
+        
+        for i in range(len(list(inventory.keys())))[:limit]:
+            dataset = inventory[titles[i]]
             url = dataset.get('datasetDetails')
+
+            if limit > 20 and i % 10 == 0:
+                await ctx.report_progress(progress=i, total=limit)
 
             if url is not None: 
                 try:
