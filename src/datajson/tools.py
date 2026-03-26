@@ -7,7 +7,7 @@ from datajson.utils import query_dataset, clean_up_inventory, parse_dataset_deta
 
 def register_tools(mcp):
     @mcp.tool(task=True)
-    async def search_datasets(params:SearchParams):
+    async def search_datasets():
         '''
         searches data inventory on data.medicaid.gov 
 
@@ -16,11 +16,11 @@ def register_tools(mcp):
         '''
         url = 'https://data.medicaid.gov/data.json' 
 
-        params_dict = params.to_url() 
-        if params_dict is not None: 
-            params_str = "&".join([f'{k}={v}' for k,v in list(params_dict.items())])
+        # params_dict = params.to_url() 
+        # if params_dict is not None: 
+        #     params_str = "&".join([f'{k}={v}' for k,v in list(params_dict.items())])
 
-            url = f"{url}?{params_str}"
+        #     url = f"{url}?{params_str}"
 
         results = await query_dataset(url)
         return clean_up_inventory(results)
