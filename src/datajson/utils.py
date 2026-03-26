@@ -15,8 +15,7 @@ async def query_dataset(url:str) -> dict:
         raise Exception(f'query failed: {e}') 
     
 
-def clean_up_inventory(inventory:dict, 
-                       limit:int|None=None) -> dict:
+def clean_up_inventory(inventory:dict) -> dict:
         '''
         helper function to clean up retrived inventory 
         from data.medicaid.gov 
@@ -26,11 +25,8 @@ def clean_up_inventory(inventory:dict,
             raise Exception('Query returned no datasets')
         
         cleaned_inventory = {}
-
-        if limit is None:
-                limit = len(datasets) - 1
         
-        for dataset in datasets[:limit]: 
+        for dataset in datasets: 
             title = dataset.get('title')
 
             # go through all distributions (most only have 1)

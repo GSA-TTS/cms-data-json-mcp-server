@@ -23,13 +23,13 @@ def register_tools(mcp):
             url = f"{url}?{params_str}"
 
         results = await query_dataset(url)
-        return clean_up_inventory(results, limit=params.size)
+        return clean_up_inventory(results)
 
 
     @mcp.tool(task=True)
     async def get_candidate_datasets(inventory:dict, 
                                      ctx:Context = CurrentContext(), 
-                                     limit:int|None = 15) -> list[dict]:
+                                     limit:int|None = 20) -> list[dict]:
         '''
         retrieve details on datasets matching search specifications
         this tool allows you get to get column/variable level information
