@@ -1,6 +1,7 @@
 import httpx
+import pytz
 import regex as re
-import pandas as pd
+from datetime import datetime
 from datajson.models import SearchParams
     
 
@@ -44,8 +45,15 @@ def clean_up_inventory(inventory:dict) -> dict:
 
                 # if title is already in inventory, only update if this is a more recent entry
                 last_updated = dataset.get('modified')
-                if cleaned_title in list(cleaned_inventory.keys()) and pd.to_datetime(last_updated) < pd.to_datetime(cleaned_inventory[cleaned_title]['lastUpdated']):
-                    continue
+                if cleaned_title in list(cleaned_inventory.keys()):
+                    new = datetime.fromisoformat(last_updated) 
+                    new.tzinfo = pytz.UTC
+
+                    curr = datetime.fromisoformat(cleaned_inventory[cleaned_title]['lastUpdated'])
+                    curr.tzinfo = pytz.UTC
+
+                    if new < curr: 
+                        continue
 
                 cleaned_inventory[cleaned_title] = {
                     'description': dataset.get('description'), 
