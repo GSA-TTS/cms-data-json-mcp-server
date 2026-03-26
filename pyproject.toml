@@ -9,7 +9,6 @@ dependencies = [
     "fastmcp[tasks]>=3.0.0",
     "mcp[cli]>=1.26.0",
     "pandas>=2.2.2",
-    "pytz>=2026.1.post1",
     "regex>=2026.2.28",
     "requests>=2.32.5",
 ]

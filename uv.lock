@@ -413,7 +413,6 @@ dependencies = [
     { name = "fastmcp", extra = ["tasks"] },
     { name = "mcp", extra = ["cli"] },
     { name = "pandas" },
-    { name = "pytz" },
     { name = "regex" },
     { name = "requests" },
 ]
@@ -424,7 +423,6 @@ requires-dist = [
     { name = "fastmcp", extras = ["tasks"], specifier = ">=3.0.0" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.26.0" },
     { name = "pandas", specifier = ">=2.2.2" },
-    { name = "pytz", specifier = ">=2026.1.post1" },
     { name = "regex", specifier = ">=2026.2.28" },
     { name = "requests", specifier = ">=2.32.5" },
 ]
