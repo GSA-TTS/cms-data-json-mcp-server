@@ -40,7 +40,7 @@ def clean_up_inventory(inventory:dict) -> dict:
 
             if title is not None: 
                 # remove year 
-                cleaned_title = re.sub('\d{4}$', '', title).strip()
+                cleaned_title = re.sub(r'\d{4}$', '', title).strip()
 
                 # if title is already in inventory, only update if this is a more recent entry
                 last_updated = dataset.get('modified')
