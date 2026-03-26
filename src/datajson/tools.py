@@ -10,9 +10,6 @@ def register_tools(mcp):
     async def search_datasets():
         '''
         searches data inventory on data.medicaid.gov 
-
-        ARGS:
-            params: search paramters for query
         '''
         url = 'https://data.medicaid.gov/data.json' 
 
