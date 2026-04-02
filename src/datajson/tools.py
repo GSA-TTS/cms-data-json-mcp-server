@@ -10,6 +10,9 @@ def register_tools(mcp):
     async def search_datasets():
         '''
         searches data inventory on data.medicaid.gov 
+
+        use this to discover datasets that are potentially  
+        relevant to a users query
         '''
         url = 'https://data.medicaid.gov/data.json' 
 
@@ -32,7 +35,8 @@ def register_tools(mcp):
         this tool allows you get to get column/variable level information
 
         use the context from the current session to decide which datasets 
-        are relevant to the users question
+        are relevant to the users question. DO NOT PASS IN THE ENTIRE INVENTORY - 
+        only search details for a subset of datasets
 
         ARGS:
             inventory: dictionary containing data.medicaid.gov's data.json inventory
@@ -65,5 +69,3 @@ def register_tools(mcp):
                     continue
 
         return candidates
-
-
