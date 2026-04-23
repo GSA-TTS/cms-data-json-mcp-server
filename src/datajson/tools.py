@@ -2,22 +2,31 @@ from typing import Any
 
 from fastmcp.dependencies import CurrentContext
 from fastmcp.server.context import Context
-from datajson.utils import query_dataset, clean_up_inventory, parse_dataset_details_page
+from datajson.utils import query_dataset, parse_dataset_details_page, _tokenize_text
 
 
 def register_tools(mcp):
     @mcp.tool(task=True)
-    async def datajson_search_inventory() -> dict[str, Any]:
+    async def datajson_search_inventory(query:str, 
+                                        k:int=5) -> dict[str, Any]:
         '''
         searches data inventory on data.medicaid.gov 
 
         use this to discover datasets that are potentially  
         relevant to a users query
         '''
-        url = 'https://data.medicaid.gov/data.json' 
+        dataset_scores = _bm25.get_scores(_tokenize_text(query))
+        ranked_scores = sorted(enumerate(dataset_scores), key = lambda s: s[1], reverse=True)
 
-        results = await query_dataset(url)
-        return clean_up_inventory(results)
+        datasets = list(_inventory.keys())
+        candidates = {}
+        for idx, score in ranked_scores[:k]:
+            if score <= 0:
+                break 
+
+            candidates[datasets[idx]] = _inventory[datasets[idx]]
+
+        return candidates
 
 
     @mcp.tool(task=True)
@@ -64,10 +73,3 @@ def register_tools(mcp):
 
         return candidates
     
-
-    @mcp.tool(task=True)
-    async def datajson_summarize_datasets(candidates:list[dict]):
-        '''
-        
-        '''
-        pass 

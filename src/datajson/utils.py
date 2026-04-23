@@ -2,7 +2,7 @@ import httpx
 import regex as re
 import pandas as pd
 from typing import Any
-from datajson.models import SearchParams
+from rank_bm25 import BM25Okapi
 
 async def query_dataset(url:str) -> dict[str, Any]:
     try:
@@ -94,3 +94,30 @@ def parse_dataset_details_page(dataset:dict[str, Any]) -> dict[str, Any]:
              'description': field.get('description')}
           )
     return {'title': data.get('title'), 'fields': cleaned_fields}
+
+
+def _tokenize_text(text:str) -> list[str]:
+    '''
+    tokenize text
+    '''
+    return re.findall(r"[a-z0-9]+", text.lower())
+
+
+def _combine_dataset_text(data:dict[str, Any]) -> str:
+    parts = [
+        data.get("title", "") * 2,         
+        data.get("description", ""),
+        " ".join(data.get("keyword", [])),
+        " ".join(data.get("theme", [])),
+    ]
+    return " ".join(parts)
+
+
+async def _build_index() -> tuple:
+    url = 'https://data.medicaid.gov/data.json' 
+    inventory = await query_dataset(url)
+    inventory = clean_up_inventory(inventory)
+    
+    corpus = [_combine_dataset_text(inventory.get(data, {})) for data in inventory]
+    bm25 = BM25Okapi(corpus)
+    return (inventory, bm25)

@@ -1,7 +1,16 @@
+from datajson.utils import _build_index
 from fastmcp import FastMCP 
+from fastmcp.server.lifespan import lifespan
 from datajson.tools import register_tools
 from starlette.requests import Request
 from starlette.responses import JSONResponse
+
+@lifespan
+async def server_lifespan(mcp):
+    inventory, bm25 = await _build_index()
+    yield {'index':True, 
+           'inventory':inventory, 
+           'bm25':bm25} 
 
 mcp = FastMCP(name="datajson", 
               instructions="""
@@ -25,7 +34,8 @@ mcp = FastMCP(name="datajson",
               - pull the data inventory using search_datasets
               - model makes a judgement about which datasets might be relevant
               - investigate relevant datasets using get_candidate_datasets to see column-levle information
-              """)
+              """, 
+              lifespan=server_lifespan)
 
 register_tools(mcp)
 
