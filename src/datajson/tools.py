@@ -1,13 +1,13 @@
+from typing import Any
+
 from fastmcp.dependencies import CurrentContext
 from fastmcp.server.context import Context
-
-from datajson.models import SearchParams
 from datajson.utils import query_dataset, clean_up_inventory, parse_dataset_details_page
 
 
 def register_tools(mcp):
     @mcp.tool(task=True)
-    async def search_datasets():
+    async def datajson_search_inventory() -> dict[str, Any]:
         '''
         searches data inventory on data.medicaid.gov 
 
@@ -16,20 +16,14 @@ def register_tools(mcp):
         '''
         url = 'https://data.medicaid.gov/data.json' 
 
-        # params_dict = params.to_url() 
-        # if params_dict is not None: 
-        #     params_str = "&".join([f'{k}={v}' for k,v in list(params_dict.items())])
-
-        #     url = f"{url}?{params_str}"
-
         results = await query_dataset(url)
         return clean_up_inventory(results)
 
 
     @mcp.tool(task=True)
-    async def get_candidate_datasets(inventory:dict, 
-                                     ctx:Context = CurrentContext(), 
-                                     limit:int|None = 20) -> list[dict]:
+    async def datajson_search_datasets(inventory:dict[str, Any], 
+                                    ctx:Context = CurrentContext(), 
+                                    limit:int|None = 20) -> list[dict]:
         '''
         retrieve details on datasets matching search specifications
         this tool allows you get to get column/variable level information
@@ -69,3 +63,11 @@ def register_tools(mcp):
                     continue
 
         return candidates
+    
+
+    @mcp.tool(task=True)
+    async def datajson_summarize_datasets(candidates:list[dict]):
+        '''
+        
+        '''
+        pass 

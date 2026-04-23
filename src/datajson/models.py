@@ -71,7 +71,6 @@ class BureauCode(Enum):
     '''
     Values for 'bureauCode' field
     '''
-
     HHS = '009:00'
     CMS = '009:38'
 
@@ -94,28 +93,3 @@ class SearchParams(BaseModel):
     description:Optional[str] = Field(None, description='dataset description')
     bureauCode:Optional[BureauCode] = Field(None, description='indicates what agency/bureau the data is from')
     periodicity:Optional[AccrualPeriodicity] = Field(None, description='how frequently the data is updated')
-
-    def to_url(self) -> dict: 
-        '''
-        convert parameters to search URL
-        '''
-        criteria = {}
-
-        if self.keyword:
-            criteria['keyword'] = self.keyword
-
-        if self.theme:
-            criteria['theme'] = self.theme 
-
-        if self.description:
-            criteria['description'] = self.description
-
-        if self.bureauCode:
-            criteria['bureauCode'] = self.bureauCode
-
-        if self.periodicity:
-            criteria['accrualPeriodicity'] = self.periodicity
-
-        if len(criteria) != 0:
-            return criteria
-        
