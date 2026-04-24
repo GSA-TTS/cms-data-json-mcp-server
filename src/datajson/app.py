@@ -1,3 +1,4 @@
+import asyncio
 from datajson.utils import _build_index
 from fastmcp import FastMCP 
 from fastmcp.server.lifespan import lifespan
@@ -7,7 +8,9 @@ from starlette.responses import JSONResponse
 
 @lifespan
 async def server_lifespan(app):
-    inventory, corpus, bm25 = await _build_index()
+    inventory, corpus, bm25 = await asyncio.wait_for(
+        _build_index(), timeout=45
+    )
     yield {'index':True, 
            'inventory':inventory, 
            'corpus':corpus,

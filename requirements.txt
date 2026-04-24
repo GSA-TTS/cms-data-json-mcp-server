@@ -17,6 +17,8 @@ anyio==4.12.1
     #   watchfiles
 async-timeout==5.0.1 ; python_full_version < '3.11.3'
     # via redis
+asyncio==4.0.0
+    # via data-json-mcp-pilot
 attrs==25.4.0
     # via
     #   cyclopts
