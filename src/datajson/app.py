@@ -6,7 +6,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 @lifespan
-async def server_lifespan(mcp):
+async def server_lifespan(app):
     inventory, corpus, bm25 = await _build_index()
     yield {'index':True, 
            'inventory':inventory, 
