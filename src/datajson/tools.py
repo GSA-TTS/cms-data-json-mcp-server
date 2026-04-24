@@ -29,7 +29,7 @@ def register_tools(mcp):
                 break 
             candidates[datasets[idx]] = inventory[datasets[idx]]
 
-        return dataset_scores
+        return candidates
 
     @mcp.tool(task=True)
     async def datajson_search_datasets(inventory:dict[str, Any], 
@@ -74,4 +74,3 @@ def register_tools(mcp):
                     continue
 
         return candidates
-    
