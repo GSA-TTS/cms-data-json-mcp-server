@@ -8,31 +8,33 @@ from datajson.utils import query_dataset, parse_dataset_details_page, _tokenize_
 def register_tools(mcp):
     @mcp.tool(task=True)
     async def datajson_search_inventory(query:str, 
-                                        k:int=5) -> dict[str, Any]:
+                                        ctx:Context=CurrentContext(),
+                                        k:int=5):
         '''
         searches data inventory on data.medicaid.gov 
 
         use this to discover datasets that are potentially  
         relevant to a users query
         '''
-        dataset_scores = _bm25.get_scores(_tokenize_text(query))
-        ranked_scores = sorted(enumerate(dataset_scores), key = lambda s: s[1], reverse=True)
+        bm25 = ctx.lifespan_context['bm25']
+        inventory = ctx.lifespan_context['inventory']
 
-        datasets = list(_inventory.keys())
+        dataset_scores = bm25.get_scores(_tokenize_text(query))
+        ranked_scores = sorted(enumerate(dataset_scores), key=lambda s: s[1], reverse=True)
+
+        datasets = list(inventory.keys())
         candidates = {}
         for idx, score in ranked_scores[:k]:
             if score <= 0:
                 break 
+            candidates[datasets[idx]] = inventory[datasets[idx]]
 
-            candidates[datasets[idx]] = _inventory[datasets[idx]]
-
-        return candidates
-
+        return dataset_scores
 
     @mcp.tool(task=True)
     async def datajson_search_datasets(inventory:dict[str, Any], 
-                                    ctx:Context = CurrentContext(), 
-                                    limit:int|None = 20) -> list[dict]:
+                                    ctx:Context=CurrentContext(), 
+                                    limit:int|None=20) -> list[dict]:
         '''
         retrieve details on datasets matching search specifications
         this tool allows you get to get column/variable level information

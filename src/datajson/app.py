@@ -7,9 +7,10 @@ from starlette.responses import JSONResponse
 
 @lifespan
 async def server_lifespan(mcp):
-    inventory, bm25 = await _build_index()
+    inventory, corpus, bm25 = await _build_index()
     yield {'index':True, 
            'inventory':inventory, 
+           'corpus':corpus,
            'bm25':bm25} 
 
 mcp = FastMCP(name="datajson", 

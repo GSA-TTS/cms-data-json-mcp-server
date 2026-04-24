@@ -103,14 +103,14 @@ def _tokenize_text(text:str) -> list[str]:
     return re.findall(r"[a-z0-9]+", text.lower())
 
 
-def _combine_dataset_text(data:dict[str, Any]) -> str:
+def _combine_dataset_text(title, data:dict[str, Any]) -> str:
     parts = [
-        data.get("title", "") * 2,         
+        f"{title} " * 3,         
         data.get("description", ""),
         " ".join(data.get("keyword", [])),
         " ".join(data.get("theme", [])),
     ]
-    return " ".join(parts)
+    return " ".join(parts).lower().strip()
 
 
 async def _build_index() -> tuple:
@@ -118,6 +118,6 @@ async def _build_index() -> tuple:
     inventory = await query_dataset(url)
     inventory = clean_up_inventory(inventory)
     
-    corpus = [_combine_dataset_text(inventory.get(data, {})) for data in inventory]
+    corpus = [_tokenize_text(_combine_dataset_text(data, inventory.get(data, {}))) for data in inventory]
     bm25 = BM25Okapi(corpus)
-    return (inventory, bm25)
+    return (inventory, corpus, bm25)
