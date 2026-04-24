@@ -8,5 +8,5 @@ applications:
     env:
       PYTHONUNBUFFERED: 1
     random-route: true
-    disk_quota: 1024M
+    disk_quota: 2048
     memory: 512M
