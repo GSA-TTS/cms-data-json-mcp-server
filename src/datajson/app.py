@@ -9,7 +9,7 @@ from starlette.responses import JSONResponse
 @lifespan
 async def server_lifespan(app):
     inventory, corpus, bm25 = await asyncio.wait_for(
-        _build_index(), timeout=120
+        _build_index(), timeout=240
     )
     yield {'index':True, 
            'inventory':inventory, 

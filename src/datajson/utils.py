@@ -1,3 +1,4 @@
+import os 
 import httpx
 import regex as re
 import pandas as pd
@@ -6,7 +7,8 @@ from rank_bm25 import BM25Okapi
 
 async def query_dataset(url:str) -> dict[str, Any]:
     try:
-        async with httpx.AsyncClient(timeout=180) as client: 
+        proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("HTTP_PROXY")
+        async with httpx.AsyncClient(timeout=240, proxy=proxy) as client: 
             response = await client.get(
                     url
                 )
