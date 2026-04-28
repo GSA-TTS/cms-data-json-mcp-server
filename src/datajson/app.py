@@ -35,9 +35,9 @@ mcp = FastMCP(name="datajson",
               list of the data available 
 
               MOST COMMON WORK FLOW:
-              - pull the data inventory using search_datasets
-              - model makes a judgement about which datasets might be relevant
-              - investigate relevant datasets using get_candidate_datasets to see column-levle information
+              - search the inventory using datajson_search_inventory
+              - model determines if any search results are worth inspecting
+              - investigate relevant datasets using datajson_search_datasets to see column-levle information
               """, 
               lifespan=server_lifespan)
 
@@ -47,7 +47,7 @@ register_tools(mcp)
 async def health_check(request:Request) -> JSONResponse:
     return JSONResponse({"status": "healthy", "service": "cms-datajson-mcp-server"})
 
-app = mcp.http_app(stateless_http=True)
+app = mcp.http_app(stateless_http=False)
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")

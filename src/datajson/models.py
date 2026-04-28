@@ -7,7 +7,7 @@ class AccrualPeriodicity(Enum):
     '''
     Values for 'accrualPeriodicity' field
     '''
-
+    
     RP_10Y = 'R/P10Y'
     RP_4Y = 'R/P4Y'
     RP_1Y = 'R/P1Y'

@@ -25,6 +25,7 @@ async def query_dataset(url:str) -> dict[str, Any]:
     except httpx.RequestError as e:
         raise Exception(f"Request error: {str(e)}") from e 
 
+
 def clean_up_inventory(inventory:dict[str, Any]) -> dict[str, Any]:
     '''
     helper function to clean up retrived inventory 
