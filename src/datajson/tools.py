@@ -22,6 +22,7 @@ def register_tools(mcp):
             query: question the user has
             ctx: context from current session
             k: number of results to return
+                - use default unless specified overwise
         '''
         bm25 = ctx.lifespan_context['bm25']
         inventory = ctx.lifespan_context['inventory']
@@ -49,6 +50,8 @@ def register_tools(mcp):
         use the context from the current session to decide which datasets 
         are relevant to the users question through the datajson_search_inventory
         function. DO NOT PASS IN THE ENTIRE INVENTORY - only search details for a subset of datasets
+
+        use this whenever asked about column/variable level information
 
         ARGS:
             inventory: dictionary containing data.medicaid.gov's data.json inventory

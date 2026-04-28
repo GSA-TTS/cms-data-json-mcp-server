@@ -37,7 +37,7 @@ mcp = FastMCP(name="datajson",
               MOST COMMON WORK FLOW:
               - search the inventory using datajson_search_inventory
               - model determines if any search results are worth inspecting
-              - investigate relevant datasets using datajson_search_datasets to see column-levle information
+              - investigate relevant datasets using datajson_search_datasets to see column level information
               """, 
               lifespan=server_lifespan)
 
