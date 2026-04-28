@@ -9,12 +9,19 @@ def register_tools(mcp):
     @mcp.tool(task=True)
     async def datajson_search_inventory(query:str, 
                                         ctx:Context=CurrentContext(),
-                                        k:int=5):
+                                        k:int=10):
         '''
-        searches data inventory on data.medicaid.gov 
+        searches data inventory on data.medicaid.gov with 
+        simple BM25 search - surfaces relevant candidates
+        for LLM to evaluate
 
         use this to discover datasets that are potentially  
         relevant to a users query
+
+        ARGS:
+            query: question the user has
+            ctx: context from current session
+            k: number of results to return
         '''
         bm25 = ctx.lifespan_context['bm25']
         inventory = ctx.lifespan_context['inventory']
@@ -40,8 +47,8 @@ def register_tools(mcp):
         this tool allows you get to get column/variable level information
 
         use the context from the current session to decide which datasets 
-        are relevant to the users question. DO NOT PASS IN THE ENTIRE INVENTORY - 
-        only search details for a subset of datasets
+        are relevant to the users question through the datajson_search_inventory
+        function. DO NOT PASS IN THE ENTIRE INVENTORY - only search details for a subset of datasets
 
         ARGS:
             inventory: dictionary containing data.medicaid.gov's data.json inventory

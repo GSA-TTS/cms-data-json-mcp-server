@@ -6,9 +6,14 @@ from typing import Any
 from rank_bm25 import BM25Okapi
 
 async def query_dataset(url:str) -> dict[str, Any]:
+    '''
+    helper function to pull inventory/individual dataset details
+
+    ARGS:
+        url: site to retrieve
+    '''
     try:
-        proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("HTTP_PROXY")
-        async with httpx.AsyncClient(timeout=240, proxy=proxy) as client: 
+        async with httpx.AsyncClient(timeout=240) as client: 
             response = await client.get(
                     url
                 )
@@ -24,6 +29,9 @@ def clean_up_inventory(inventory:dict[str, Any]) -> dict[str, Any]:
     '''
     helper function to clean up retrived inventory 
     from data.medicaid.gov 
+
+    ARGS:
+        inventory: dictionary containing data.medicaid.gov's data.json inventory 
     '''
     datasets = inventory.get('dataset')
     if datasets is None:
@@ -78,7 +86,6 @@ def parse_dataset_details_page(dataset:dict[str, Any]) -> dict[str, Any]:
 
     ARGS:
         dataset: dictionary with information on dataset fields 
-        
     '''
     data = dataset.get('data')
     if not data: 
@@ -101,11 +108,21 @@ def parse_dataset_details_page(dataset:dict[str, Any]) -> dict[str, Any]:
 def _tokenize_text(text:str) -> list[str]:
     '''
     tokenize text
+
+    ARGS:
+        text: string to split apart
     '''
     return re.findall(r"[a-z0-9]+", text.lower())
 
 
 def _combine_dataset_text(title, data:dict[str, Any]) -> str:
+    '''
+    combines text fields from inventory into one field
+
+    ARGS:
+        title: dataset title
+        data: dataset details
+    '''
     parts = [
         f"{title} " * 3,         
         data.get("description", ""),
@@ -116,6 +133,9 @@ def _combine_dataset_text(title, data:dict[str, Any]) -> str:
 
 
 async def _build_index() -> tuple:
+    '''
+    builds lightweight BM25 index from inventory 
+    '''
     url = 'https://data.medicaid.gov/data.json' 
     inventory = await query_dataset(url)
     inventory = clean_up_inventory(inventory)
