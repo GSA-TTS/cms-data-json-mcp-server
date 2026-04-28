@@ -17,12 +17,38 @@ understanding capabilities allows the model to investigate a more targetted subs
 - **datajson_search_inventory:** search inventory 
 - **datajson_search_datasets:** pull details for a particular dataset
 
-## Running locally
+## Running Locally
 To run a copy of this server locally, use the following commands:
 
-``
+```
 git clone https://github.com/GSA-TTS/cms-data-json-mcp-server
 cd cms-data-json-mcp-server
 uv sync --dev
 uv run src/datajson/app.py
-``
+```
+
+## Claude Desktop Setup 
+1. Open your Claude config file 
+
+2. Add the path to your local installation
+```
+{
+  "mcpServers": {
+    "cms-data-json": {
+      "command": "/path/to/data-json-mcp-pilot"
+    }
+  }
+}
+```
+
+## Repository Structure 
+```
+src/
+    datajson/
+        app.py       # set up MCP app
+        models.py    # field definitions
+        tools.py     # mcp tools
+        utils.py     # helper functions
+manifest.yaml         # cloud.gov deployment config
+pyproject.toml
+```
