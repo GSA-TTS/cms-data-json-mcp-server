@@ -40,7 +40,7 @@ def clean_up_inventory(inventory:dict[str, Any]) -> dict[str, Any]:
     
     cleaned_inventory = {}
     
-    for dataset in datasets: 
+    for _, dataset in datasets.items(): 
         title = dataset.get('title')
 
         # go through all distributions (most only have 1)
