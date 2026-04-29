@@ -28,7 +28,17 @@ uv run src/datajson/app.py
 ```
 
 ## Claude Desktop Setup 
-1. Open your Claude config file 
+1. Open your Claude Desktop config file 
+
+To find your config file in Windows, use: 
+```
+code $env:AppData\Claude\claude_desktop_config.json
+```
+
+To find your config file on a Mac, use: 
+```
+code ~/Library/Application\ Support/Claude/claude_desktop_config.json
+```
 
 2. Add the path to your local installation
 ```
