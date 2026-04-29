@@ -8,6 +8,8 @@ Upon start up, the server creates a light-weight BM25 index of the current data 
 surface relevant candidates for the LLM to inspect. Combining traditional search with AI systems natural language 
 understanding capabilities allows the model to investigate a more targetted subset of dataset and avoids overwhelming the session's context window. 
 
+Remote deployment is currently configured for cloud.gov - the remote URL is available upon request. 
+
 #### Most common workflow
 1) run an initial search against the indexed inventory 
 2) identify a broad set of relevant datasets 
@@ -59,6 +61,9 @@ src/
         models.py    # field definitions
         tools.py     # mcp tools
         utils.py     # helper functions
-manifest.yaml         # cloud.gov deployment config
+manifest.yaml        # cloud.gov deployment config
 pyproject.toml
 ```
+
+## Contact
+For questions, please contact haley.johnson@gsa.gov or haley.johnson@cms.hhs.gov
