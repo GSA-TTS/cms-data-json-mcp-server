@@ -1,5 +1,5 @@
 # data.cms.gov/data.json MCP server
-Disclaimer: This server is a proof of concept and is for demonstration purposes only. While this prototype is meant to be a proof of concept for data.cms.gov, please note that it currently searches **data.medicaid.gov.**
+Disclaimer: This server is a proof of concept and is for demonstration purposes only. While this prototype is meant to be a proof of concept for data.cms.gov, please note that it currently searches **data.medicaid.gov**.
 
 ## Overview
 This server helps users navigate data resources available on data.medicaid.gov using it's data.json file, which an inventory of all data assets available on the site. 
@@ -13,7 +13,7 @@ Remote deployment is currently configured for cloud.gov - the remote URL is avai
 #### Most common workflow
 1) run an initial search against the indexed inventory 
 2) identify a broad set of relevant datasets 
-2) drill down into column level details
+2) drill down into a specific dataset to retrieve column level details
 
 #### Available tools
 - **datajson_search_inventory:** search inventory 

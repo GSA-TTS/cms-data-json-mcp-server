@@ -16,13 +16,17 @@ def register_tools(mcp):
         for LLM to evaluate
 
         use this to discover datasets that are potentially  
-        relevant to a users query
+        relevant to a users query. feel free to add synonyms 
+        or other relevant terms to the users query to surface 
+        more results
 
         ARGS:
             query: question the user has
             ctx: context from current session
             k: number of results to return
                 - use default unless specified overwise
+                - will return fewer than 'k' candidates if there are <k
+                  datasets will positive relevancy scores
         '''
         bm25 = ctx.lifespan_context['bm25']
         inventory = ctx.lifespan_context['inventory']
@@ -41,8 +45,8 @@ def register_tools(mcp):
 
     @mcp.tool(task=True)
     async def datajson_search_datasets(inventory:dict[str, Any], 
-                                    ctx:Context=CurrentContext(), 
-                                    limit:int|None=20) -> list[dict]:
+                                       ctx:Context=CurrentContext(), 
+                                       limit:int|None=20) -> list[dict]:
         '''
         retrieve details on datasets matching search specifications
         this tool allows you get to get column/variable level information
