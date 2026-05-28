@@ -1,12 +1,11 @@
 # data.cms.gov/data.json MCP server
-Disclaimer: This server is a proof of concept and is for demonstration purposes only. While this prototype is meant to be a proof of concept for data.cms.gov, please note that it currently searches **data.medicaid.gov**.
+Disclaimer: This server is a proof of concept and is for demonstration purposes only. While this prototype is meant to be a proof of concept for data.cms.gov, please note that it currently searches **data.medicaid.gov**, as the structure of data.medicaid.gov more closely mirrors the updated metadata 
+structure that will soon be implemented on data.cms.gov.
 
 ## Overview
 This server helps users navigate data resources available on data.medicaid.gov using it's data.json file, which an inventory of all data assets available on the site. 
 
-Upon start up, the server creates a light-weight BM25 index of the current data inventory, which is used to 
-surface relevant candidates for the LLM to inspect. Combining traditional search with AI systems natural language 
-understanding capabilities allows the model to investigate a more targetted subset of dataset and avoids overwhelming the session's context window. 
+Upon start up, the server creates a light-weight BM25 index of the current data inventory, which is used to surface relevant candidates for the LLM to inspect. Combining traditional search with AI systems natural language understanding capabilities allows the model to investigate a more targeted subset of dataset and avoids overwhelming the session's context window. 
 
 Remote deployment is currently configured for cloud.gov - the remote URL is available upon request. 
 
