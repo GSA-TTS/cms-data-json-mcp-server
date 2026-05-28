@@ -1,5 +1,7 @@
 # data.cms.gov/data.json MCP server
-Disclaimer: This server is a proof of concept and is for demonstration purposes only. While this prototype is meant to be a proof of concept for data.cms.gov, please note that it currently searches **data.medicaid.gov**, as the structure of data.medicaid.gov more closely mirrors the updated metadata 
+**Disclaimer:** This server is a proof of concept and is for demonstration purposes only. 
+
+While this prototype is meant to be a proof of concept for data.cms.gov, please note that it currently searches **data.medicaid.gov**, as the structure of data.medicaid.gov more closely mirrors the updated metadata 
 structure that will soon be implemented on data.cms.gov.
 
 ## Overview
