@@ -65,8 +65,6 @@ class DataTheme(Enum):
     uncategorized = 'Uncategorized'
     unwinding = 'Unwinding'
 
-
-
 class BureauCode(Enum):
     '''
     Values for 'bureauCode' field
@@ -85,7 +83,6 @@ class BureauCode(Enum):
 
 
         return full_names.get(code, code)
-
 
 class SearchParams(BaseModel):
     keyword:Optional[str] = Field(None, description='keywords that describe the dataset')

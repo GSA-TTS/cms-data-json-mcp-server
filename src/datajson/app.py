@@ -1,7 +1,7 @@
 import asyncio
-from datajson.utils import _build_index
 from fastmcp import FastMCP 
 from fastmcp.server.lifespan import lifespan
+from datajson.utils import _build_index
 from datajson.tools import register_tools
 from starlette.requests import Request
 from starlette.responses import JSONResponse

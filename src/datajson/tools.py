@@ -16,9 +16,8 @@ def register_tools(mcp):
         for LLM to evaluate
 
         use this to discover datasets that are potentially  
-        relevant to a users query. feel free to add synonyms 
-        or other relevant terms to the users query to surface 
-        more results
+        relevant to a users query. add synonyms or other relevant 
+        terms to the users query to surface more results
 
         ARGS:
             query: question the user has
@@ -76,10 +75,11 @@ def register_tools(mcp):
             dataset = inventory[titles[i]]
             url = dataset.get('datasetDetails')
 
+            # report how many elements have been inspected
             if limit > 20 and i % 10 == 0:
                 await ctx.report_progress(progress=i, total=limit)
 
-            if url is not None: 
+            if url: 
                 try:
                     results = await query_dataset(url)
                     results = parse_dataset_details_page(results)

@@ -135,7 +135,11 @@ def _combine_dataset_text(title, data:dict[str, Any]) -> str:
 
 async def _build_index() -> tuple:
     '''
-    builds lightweight BM25 index from inventory 
+    builds lightweight BM25 index from inventory, returns 
+    the data inventory, text corpus and BM25 index
+
+    ARGS:
+        none
     '''
     url = 'https://data.medicaid.gov/data.json' 
     inventory = await query_dataset(url)
