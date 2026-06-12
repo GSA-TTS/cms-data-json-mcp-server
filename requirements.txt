@@ -272,7 +272,7 @@ uncalled-for==0.2.0
     # via
     #   fastmcp
     #   pydocket
-urllib3==2.6.3
+urllib3==2.7.0
     # via requests
 uvicorn==0.41.0
     # via
